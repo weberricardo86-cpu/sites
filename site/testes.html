@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo do Número Secreto</title>
+</head>
+<body style="background-color: #1e1e1e; color: white; text-align: center; font-family: Arial, sans-serif; padding-top: 50px;">
+
+    <h1>🔮 Jogo do Número Secreto</h1>
+    <p style="font-size: 18px; color: #aaa;">Tente adivinhar o número que o computador sorteou entre 1 e 10!</p>
+
+    <!-- Caixa para digitar o chute (Mudei o type para number para facilitar) -->
+    <input type="number" id="chute-usuario" placeholder="Digite de 1 a 10" 
+           style="display: block; margin: 20px auto; padding: 12px; font-size: 18px; border-radius: 6px; width: 200px;">
+
+    <!-- Bloco com os botões lado a lado -->
+    <div style="margin-bottom: 30px;">
+        <button onclick="verificarChute()" style="padding: 15px 30px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 8px; margin: 10px;">
+            Chutar
+        </button>
+
+        <button onclick="novoJogo()" style="padding: 15px 25px; font-size: 16px; cursor: pointer; border-radius: 8px; margin: 10px;">
+            🔄 Novo Número
+        </button>
+    </div>
+
+    <!-- Onde aparece a dica ou o resultado grande -->
+    <h2 id="tela-dica" style="font-size: 40px; color: yellow; margin-top: 40px;">Boa sorte!</h2>
+
+    <!-- Placar de tentativas -->
+    <h3 id="tentativas-placar" style="margin-top: 30px; color: #aaa;">Tentativas: 0</h3>
+
+    <script>
+        // O computador sorteia um número de 1 a 10 logo que a página abre
+        let numeroSecreto = Math.floor(Math.random() * 10) + 1;
+        let totalTentativas = 0;
+
+        function verificarChute() {
+            // PEGA o número que o usuário digitou usando o .value
+            const chute = document.getElementById("chute-usuario").value;
+
+            // Se a caixa estiver vazia, avisa e para o código
+            if (chute === "") {
+                alert("Por favor, digite um número antes de chutar!");
+                return;
+            }
+
+            // Toda vez que chuta, aumenta as tentativas usando o seu atalho ++
+            totalTentativas++;
+            document.getElementById("tentativas-placar").innerHTML = `Tentativas: ${totalTentativas}`;
+
+            // A lousa onde vamos ESCREVER a dica com o .innerHTML
+            const painelDica = document.getElementById("tela-dica");
+
+            // IF / ELSE para tomar as decisões do jogo
+            if (chute == numeroSecreto) {
+                painelDica.innerHTML = "<span style='color: green;'>🎯 Você Acertou! Parabéns!</span>";
+            } else if (chute > numeroSecreto) {
+                painelDica.innerHTML = "❌ Errou! O número secreto é MENOR.";
+            } else {
+                painelDica.innerHTML = "❌ Errou! O número secreto é MAIOR.";
+            }
+        }
+
+        // Função do botão de reset (Gera um número novo e limpa a tela)
+        function novoJogo() {
+            numeroSecreto = Math.floor(Math.random() * 10) + 1;
+            totalTentativas = 0;
+            
+            document.getElementById("chute-usuario").value = ""; // Limpa a caixinha de texto
+            document.getElementById("tela-dica").innerHTML = "Boa sorte!";
+            document.getElementById("tentativas-placar").innerHTML = "Tentativas: 0";
+        }
+    </script>
+</body>
+</html>

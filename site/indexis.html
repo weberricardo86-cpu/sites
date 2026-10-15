@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Saldo & Investimentos</title>
+</head>
+<body style="background-color: #1e1e1e; color: white; font-family: Arial, sans-serif; text-align: center; padding-top: 40px;">
+
+    <h1>💰 Sistema de Saldo</h1>
+    
+    <div style="background-color: #2b2b2b; padding: 20px; display: inline-block; border-radius: 8px; width: 320px;">
+        <!-- Seu input original de saldo -->
+        <input type="number" id="saldo" placeholder="Digite o saldo" style="padding: 10px; font-size: 16px; border-radius: 5px; border: none; margin-bottom: 15px; width: 80%;">
+        <br>
+        
+        <!-- Botão de Investimento Verde chamando a função investir() -->
+        <button onclick="investir()" style="padding: 12px 15px; font-size: 14px; cursor: pointer; margin: 5px; background-color: #00ff00; color: black; border: none; border-radius: 5px; font-weight: bold; width: 90%;">
+            📈 Investir R$ 100 (Rende +10%)
+        </button>
+        <br>
+        
+        <button onclick="doar()" style="padding: 10px 15px; font-size: 14px; cursor: pointer; margin: 5px; background-color: #ffb703; border: none; border-radius: 5px; font-weight: bold; width: 90%;">
+            🎁 Doar R$ 100 para caridade
+        </button>
+        <br>
+        
+        <button onclick="verificarsaldo()" style="padding: 10px 15px; font-size: 14px; cursor: pointer; margin: 5px; width: 90%;">
+            🔍 Verificar Saldo
+        </button>
+    </div>
+
+    <!-- Esponja para mostrar o rendimento na tela -->
+    <h3 id="tela-investimento" style="color: #00ff00; margin-top: 20px;"></h3>
+
+    <script>
+        // Variável global para guardar o rendimento da Bolsa Dev
+        let totalInvestido = 0;
+
+        function verificarsaldo() {
+            const saldo = document.getElementById('saldo').value;
+
+            if (saldo === "") {
+                alert('Digite algo na caixa de texto!');
+                return;
+            }
+
+            alert('Seu saldo é de: R$ ' + saldo);
+        }
+
+        function doar() {
+            const saldoInput = document.getElementById('saldo');
+            const saldoAtual = Number(saldoInput.value || 0);
+
+            if (saldoAtual < 100) {
+                alert('❌ Operação Recusada! Saldo insuficiente para doar.');
+                return;
+            }
+
+            const novoSaldo = saldoAtual - 100;
+            saldoInput.value = novoSaldo;
+            
+            alert('🎉 Obrigado! Você doou R$ 100. Saldo restante: R$ ' + novoSaldo);
+        }
+
+        // 📈 A FUNÇÃO INVESTIR QUE VOCÊ QUERIA
+        function investir() {
+            const saldoInput = document.getElementById('saldo');
+            
+            // Usando o seu escudo protetor || 0 para ler o valor com segurança
+            const saldoAtual = Number(saldoInput.value || 0);
+
+            // 1. CONDIÇÃO: Se o saldo atual for menor que 100, barra na hora!
+            if (saldoAtual < 100) {
+                alert('❌ Saldo insuficiente! Você precisa de pelo menos R$ 100 para investir.');
+                return; // O freio de mão que para a função aqui
+            }
+
+            // 2. CÁLCULO: Se passou na condição, tira 100 do saldo da carteira
+            const novoSaldo = saldoAtual - 100;
+            saldoInput.value = novoSaldo; // Atualiza a caixinha de texto com o novo valor
+
+            // 3. RENDIMENTO: Soma 100 no investimento e bota os 10% de juros (* 1.1)
+            totalInvestido = (totalInvestido + 100) * 1.1;
+
+            // 4. ATUALIZAÇÃO DA TELA: Mostra o resultado para o usuário
+            alert('📈 Investimento de R$ 100 realizado com sucesso!');
+            document.getElementById('tela-investimento').innerHTML = 
+                'Total Acumulado na Bolsa Dev: R$ ' + totalInvestido.toFixed(2);
+        }
+    </script>
+</body>
+</html>

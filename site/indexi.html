@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 1 - DOM</title>
+</head>
+<body style="background-color: #1e1e1e; color: white; text-align: center; font-family: Arial, sans-serif; padding-top: 50px;">
+
+    <h1>Controle de Acesso</h1>
+
+    <input type="text" id="campo-nome" placeholder="Digite sua idade">
+
+    <button onclick="enviarDados()">Enviar</button>
+
+    <div id="mensagem-final" style="margin-top: 30px; font-size: 24px;"></div>
+
+    <script>
+       function enviarDados() {
+    const idade = document.getElementById("campo-nome").value;
+
+    if (idade === "") {
+        alert("Por favor, digite sua idade!");
+        return;
+    }
+
+    if (idade >= 18) {
+        document.getElementById("mensagem-final").innerHTML = "<span style='color: green;'>Maior de idade</span>";
+    } else {
+        document.getElementById("mensagem-final").innerHTML = "<span style='color: red;'>Menor de idade</span>";
+    }
+}
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculadora</title>
+</head>
+<!-- O body vira o "super imã" que joga tudo pro centro -->
+<body style="
+    background-color: #1a1a1a; 
+    margin: 0; 
+    height: 100vh; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    font-family: Arial, sans-serif;
+">
+    <div style="
+        background-color: #2b2b2b; 
+        color: white; 
+        width: 300px; 
+        padding: 30px; 
+        border-radius: 12px; 
+        border: 2px solid #666; 
+        box-shadow: 0px 8px 20px rgba(0, 255, 0, 0.1);
+        text-align: center;
+    ">
+        <h2 style="margin-top: 0; color: #666;">calculadora🧮</h2>
+        
+        <input type="number" id="numero1" placeholder="digite um numero" style="
+            background-color: #121212;
+            color: white;
+            font-size: 15px;
+            padding: 12px;
+            border: 1px solid #444;
+            border-radius: 8px; /* Deixa as bordas redondinhas */
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 12px;
+            outline: none; /* Tira aquela borda preta feia nativa do navegador */
+        " onfocus="this.style.borderColor='#00ff00'" onblur="this.style.borderColor='#444'">
+
+        <input type="number" id="numero2" placeholder="digite outro numero" style="
+            background-color: #121212;
+            color: white;
+            font-size: 15px;
+            padding: 12px;
+            border: 1px solid #444;
+            border-radius: 8px; /* Deixa as bordas redondinhas */
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            outline: none;
+        " onfocus="this.style.borderColor='#00ff00'" onblur="this.style.borderColor='#444'">
+
+        <hr style="border-color: #444; margin: 20px 0;">
+        
+        <!-- Nosso texto alvo amarelo que vai receber o resultado -->
+        <h3 id="texto-alvo" style="color: yellow; font-size: 22px; margin-bottom: 20px;">Aguardando cálculo...</h3>
+
+        <!-- Corrigido: Agora passando as operações com aspas simples ('') -->
+        <button onclick="calcular('adição')" style="
+            background-color: #121212; 
+            color: #666; 
+            font-size: 14px; 
+            font-weight: bold; 
+            padding: 10px 20px; 
+            border: 1px solid #666; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 8px;
+        "
+        onmouseover="this.style.backgroundColor='#00ff00'; this.style.color='#121212';" 
+        onmouseout="this.style.backgroundColor='#121212'; this.style.color='#00ff00';">
+            calcular adição
+        </button>
+
+        <button onclick="calcular('subtração')" style="
+            background-color: #121212; 
+            color: #666; 
+            font-size: 14px; 
+            font-weight: bold; 
+            padding: 10px 20px; 
+            border: 1px solid #666; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 8px;
+        "
+        onmouseover="this.style.backgroundColor='#00ff00'; this.style.color='#121212';" 
+        onmouseout="this.style.backgroundColor='#121212'; this.style.color='#00ff00';">
+            calcular subtração
+        </button>
+
+        <button onclick="calcular('multiplicação')" style="
+            background-color: #121212; 
+            color: #666; 
+            font-size: 14px; 
+            font-weight: bold; 
+            padding: 10px 20px; 
+            border: 1px solid #666; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 8px;
+        "
+        onmouseover="this.style.backgroundColor='#00ff00'; this.style.color='#121212';" 
+        onmouseout="this.style.backgroundColor='#121212'; this.style.color='#00ff00';">
+            calcular multiplicação
+        </button>
+
+        <button onclick="calcular('divisão')" style="
+            background-color: #121212; 
+            color: #666; 
+            font-size: 14px; 
+            font-weight: bold; 
+            padding: 10px 20px; 
+            border: 1px solid #666; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            width: 100%;
+        "
+        onmouseover="this.style.backgroundColor='#00ff00'; this.style.color='#121212';" 
+        onmouseout="this.style.backgroundColor='#121212'; this.style.color='#00ff00';">
+            calcular divisão
+        </button>
+    </div>
+
+<script>
+function calcular(operacao) {
+    // 1. Pega os valores na hora exata com o seu escudo de proteção || 0
+    const a = Number(document.getElementById('numero1').value || 0);
+    const b = Number(document.getElementById('numero2').value || 0);
+    
+    let resultado = 0;
+
+    // 2. Condicionais para descobrir qual botão foi clicado
+    if (operacao === 'adição') {
+        resultado = a + b;
+    } 
+    else if (operacao === 'subtrair' || operacao === 'subtração') {
+        resultado = a - b;
+    } 
+    else if (operacao === 'multiplicação') {
+        resultado = a * b;
+    } 
+    else if (operacao === 'divisão') {
+        // Filtro extra: evita o erro real de divisão por zero!
+        if (b === 0) {
+            document.getElementById('texto-alvo').innerHTML = "<span style='color: #ff4d4d;'>Impossível dividir por 0!</span>";
+            return;
+        }
+        resultado = a / b;
+    }
+
+    // 3. Localiza o h3 pelo ID que você criou
+    const alvo = document.getElementById('texto-alvo');
+            
+    // 4. Injeta o valor corrigido na tela usando concatenação com '+'
+    alvo.innerHTML = "O resultado é: " + resultado;
+}
+</script>
+</body>
+</html>

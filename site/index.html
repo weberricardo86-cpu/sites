@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        tabuada
+    </title>
+</head>
+
+<body style="margin: 0; 
+    height: 100vh; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    background-color:rgb(57, 54, 54)">
+    <div style="text-align:center; background-color:darkgrey; border-radius: 16px; padding: 7px">
+        <h1>Tabuada</h1>
+        <input id="tabuada" type="number" placeholder="digite um numero para ter a tabuada dele"
+            style="width: 260px; padding: 5px; border-radius: 30px">
+        <button onclick="calcular()" style="background-color:yellow; border-radius: 40px">Calcular A Tabuada</button>
+        <h3 id="texto-alvo" style="border-radius: 8px; font-family:sans-serif">Aguardando Operação</h3>
+        <h3 id="texto-de-alvo" style="border-radius: 8px; font-family:sans-serif"></h3>
+    </div>
+    <script>
+        function calcular() {
+            const numero = Number(document.getElementById('tabuada').value);
+            if (document.getElementById('tabuada').value === "") {
+                const texto = "Digite Algo Na Caixa De Texto"
+                document.getElementById('texto-de-alvo').innerHTML = texto;
+                setTimeout(function() {
+                    document.getElementById('texto-de-alvo').innerHTML = "";
+                }, 10000)
+                document.getElementById('texto-alvo').innerHTML = "";
+                return;
+            }
+            let textoresultado = ""
+            for (let i = 0; i <= 10; i++) {
+                textoresultado = textoresultado + numero + " x " + i + " = " + (numero * i) + "<br>";
+            }
+            const texto = "Digite Algo Na Caixa De Texto"
+
+            document.getElementById('texto-alvo').innerHTML = textoresultado;
+
+        }
+    </script>
+</body>
+
+</html>

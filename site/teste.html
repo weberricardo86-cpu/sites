@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cara ou Coroa</title>
+</head>
+<body style="background-color: #1e1e1e; color: white; text-align: center; font-family: Arial, sans-serif; padding-top: 50px;">
+
+    <h1>Cara ou Coroa</h1>
+    
+    <button onclick="playar(); contar()" style="padding: 20px 40px; font-size: 22px; font-weight: bold; cursor: pointer; border-radius: 8px;">
+        Jogar cara ou coroa
+    </button>
+
+    <h2 id="tela-resultado" style="font-size: 50px; color: yellow; margin-top: 30px;">Clique para girar!</h2>
+
+    <h3 id="placar">jogadas: 0</h3>
+
+    <!-- O SEU BOTÃO DE RESET APENAS COM O EMOJI 🔄 -->
+    <button onclick="resetar()" style="padding: 10px 20px; font-size: 18px; cursor: pointer; border-radius: 8px; margin-top: 20px;">
+        🔄 Resetar Jogo
+    </button>
+
+    <script>
+        let jogadas = 0;
+        let resultado = 0; 
+
+        function playar() {
+            resultado = Math.floor(Math.random() * 2) + 1;
+
+            if (resultado === 1) {
+                document.getElementById("tela-resultado").innerHTML = "COROA";
+            } else {
+                document.getElementById("tela-resultado").innerHTML = "CARA";
+            }
+        }
+
+        function contar() {
+            jogadas++; 
+            document.getElementById('placar').innerHTML = `jogadas: ${jogadas}`;
+        }
+
+        function resetar() {
+            // 1. Força as variáveis de memória a voltarem para zero
+            jogadas = 0;
+            resultado = 0;
+
+            // 2. Reescreve os textos iniciais na tela do usuário
+            document.getElementById('placar').innerHTML = "jogadas: 0";
+            document.getElementById("tela-resultado").innerHTML = "Clique para girar!";
+        }
+    </script>
+</body>
+</html>
